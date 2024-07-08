@@ -10,25 +10,29 @@ form.addEventListener('submit', (e) => {
 });
 ```
 # Toggle Completed/Pending Tasks: Toggles the view between completed and pending tasks.
+```
 completedToggle.addEventListener('click', () => {
     showCompleted = !showCompleted;
     completedToggle.textContent = showCompleted ? 'Pending' : 'Completed';
     createtasks();
 });
+```
 # Delete All Tasks: Clears all tasks from local storage and the data array.
-
+```
 deleteAllBtn.addEventListener('click', () => {
     data = [];
     localStorage.setItem('data', JSON.stringify(data));
     createtasks();
 });
+```
 # Data Handling
 data: Array that holds all task objects. It's initialized from local storage.
-
+```
 let data = JSON.parse(localStorage.getItem('data')) || [];
+```
 # Form Validation
 Ensures that the title input is not blank before proceeding to accept data.
-
+```
 function formvalidation() {
     if (titleinput.value === '') {
         msg.innerHTML = 'Title cannot be blank';
@@ -42,9 +46,10 @@ function formvalidation() {
         })();
     }
 }
+```
 # Accepting Data (Create/Update)
 Adds a new task or updates an existing task in the data array and updates local storage.
-
+```
 function acceptdata() {
     if (currentTaskIndex !== null) {
         data[currentTaskIndex] = {
@@ -66,9 +71,10 @@ function acceptdata() {
     localStorage.setItem('data', JSON.stringify(data));
     createtasks();
 }
+```
 # Creating Tasks (Read)
 Generates the HTML for the tasks based on the data array and the showCompleted state.
-
+```
 function createtasks() {
     tasks.innerHTML = '';
     data.forEach((x, y) => {
@@ -92,25 +98,28 @@ function createtasks() {
     });
     resetform();
 }
+```
 # Reset Form
 Clears the input fields after a task is added or updated.
-
+```
 function resetform() {
     titleinput.value = '';
     dateinput.value = '';
     descriptioninput.value = '';
 }
+```
 # Delete Task
 Removes a task from the data array and updates local storage.
-
+```
 function deletetask(index) {
     data.splice(index, 1);
     localStorage.setItem('data', JSON.stringify(data));
     createtasks();
 }
+```
 # Update Task
 Prepares the form for updating an existing task by populating the input fields with the task's current data.
-
+```
 function updatetask(index) {
     currentTaskIndex = index;
     let task = data[index];
@@ -118,14 +127,16 @@ function updatetask(index) {
     dateinput.value = task.date;
     descriptioninput.value = task.description;
 }
+```
 # Toggle Task Completion
 Toggles the completed state of a task and updates local storage.
-
+```
 window.toggleComplete = (index) => {
     data[index].completed = !data[index].completed;
     localStorage.setItem('data', JSON.stringify(data));
     createtasks();
 };
+```
 # Summary
 1) CRUD Operations: The script allows you to Create, Read, Update, and Delete tasks.
 2) Local Storage: Data persistence is achieved using local storage.
